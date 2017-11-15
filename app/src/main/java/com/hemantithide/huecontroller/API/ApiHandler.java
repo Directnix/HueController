@@ -17,15 +17,15 @@ import java.util.Iterator;
  * Created by Nick van Endhoven, 2119719 on 15-Nov-17.
  */
 
-public class ApiHandler implements VolleyListener, IApi {
+public class ApiHandler implements VolleyListener {
     public static ApiHandler instance;
 
-    String username;
-    String rootUrl;
+    static String username;
+    static String rootUrl;
 
     IApiResponse listener;
 
-    QueuedRequest lastRequest = QueuedRequest.NONE;
+    static QueuedRequest lastRequest = QueuedRequest.NONE;
 
     public static ApiHandler getInstance(String rootUrl, IApiResponse listener, Context context) {
         if (instance == null)
@@ -52,8 +52,7 @@ public class ApiHandler implements VolleyListener, IApi {
         }
     }
 
-    @Override
-    public void setBrightness(Light light, int bri) {
+    public static void setBrightness(Light light, int bri) {
         VolleyService.doRequest(rootUrl + username + "/lights/" + light.getIndex() + "/state",
                 "{\"bri\":" + bri + "}",
                 Request.Method.PUT
@@ -61,8 +60,7 @@ public class ApiHandler implements VolleyListener, IApi {
         lastRequest = QueuedRequest.SET;
     }
 
-    @Override
-    public void setHue(Light light, int hue) {
+    public static void setHue(Light light, int hue) {
         VolleyService.doRequest(rootUrl + username + "/lights/" + light.getIndex() + "/state",
                 "{\"hue\":" + hue + "}",
                 Request.Method.PUT
@@ -70,8 +68,7 @@ public class ApiHandler implements VolleyListener, IApi {
         lastRequest = QueuedRequest.SET;
     }
 
-    @Override
-    public void setSaturation(Light light, int sat) {
+    public static void setSaturation(Light light, int sat) {
         VolleyService.doRequest(rootUrl + username + "/lights/" + light.getIndex() + "/state",
                 "{\"sat\":" + sat + "}",
                 Request.Method.PUT
@@ -79,8 +76,7 @@ public class ApiHandler implements VolleyListener, IApi {
         lastRequest = QueuedRequest.SET;
     }
 
-    @Override
-    public void setOn(Light light, boolean on) {
+    public static void setOn(Light light, boolean on) {
         VolleyService.doRequest(rootUrl + username + "/lights/" + light.getIndex() + "/state",
                 "{\"on\":" + on + "}",
                 Request.Method.PUT
@@ -88,8 +84,7 @@ public class ApiHandler implements VolleyListener, IApi {
         lastRequest = QueuedRequest.SET;
     }
 
-    @Override
-    public void getLights() {
+    public static void getLights() {
         VolleyService.doRequest(rootUrl + username + "/lights",
                 Request.Method.GET
         );
