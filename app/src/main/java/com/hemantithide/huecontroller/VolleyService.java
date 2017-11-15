@@ -3,12 +3,17 @@ package com.hemantithide.huecontroller;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Nick van Endhoven, 2119719 on 15-Nov-17.
@@ -31,32 +36,44 @@ public class VolleyService {
         this.listener = listener;
     }
 
-    private static Response.Listener<String> onSucces = (String response) ->{
-        listener.onReceive(response);
-    };
-
-    private static Response.ErrorListener onError = (VolleyError response) ->{
-        Log.e("VOLLEY_SERVICE", response.toString());
-    };
-
-    public static void post(String url, String body){
-
+    public static void doRequest(String url, int requestType) {
+        doRequest(url, "", requestType);
     }
 
-    public static void put(String url, String body){
-
-    }
-
-    public static void get(String url){
-        doRequest(new StringRequest(
-                Request.Method.GET,
+    public static void doRequest(String url, final String body, int requestType){
+        StringRequest request = new StringRequest(
+                requestType,
                 url,
-                onSucces,
-                onError
-        ));
-    }
+                response -> listener.onReceive(response),
+                error -> Log.e("VOLLEY", error.toString())
+        ){
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
 
-    private static void doRequest(StringRequest request){
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return body == null ? null : body.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    return null;
+                }
+            }
+
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                String responseString = "";
+                if (response != null) {
+                    try {
+                        responseString = new String(response.data, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+            }
+        };
         requestQueue.add(request);
     }
 }
