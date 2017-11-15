@@ -22,19 +22,14 @@ public class MainActivity extends AppCompatActivity implements IApiResponse {
         setContentView(R.layout.activity_main);
 
         api = ApiHandler.getInstance("http://145.49.24.217/api/",this, this);
-        api.getLights();
     }
 
     @Override
     public void onLightsReceived(ArrayList<Light> lights) {
-        Log.i("MAIN", "lights received");
+        for(Light l: lights)
+            Log.i("MAIN", l.toString());
+
         this.lights = lights;
         //TODO: update adapter
-    }
-
-    @Override
-    public void onLightReceived(Light light) {
-        Log.i("MAIN", "light received");
-        //TODO: detail light get (for detail fragment)
     }
 }

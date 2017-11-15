@@ -1,10 +1,12 @@
 package com.hemantithide.huecontroller.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Nick van Endhoven, 2119719 on 15-Nov-17.
  */
 
-public class Light {
+public class Light implements Serializable{
 
     private String name;
     private int index;
@@ -20,6 +22,18 @@ public class Light {
         this.hue = hue;
         this.saturation = saturation;
         this.on = on;
+    }
+
+    @Override
+    public String toString() {
+        return "Light{" +
+                "name='" + name + '\'' +
+                ", index=" + index +
+                ", brightness=" + brightness +
+                ", hue=" + hue +
+                ", saturation=" + saturation +
+                ", on=" + on +
+                '}';
     }
 
     public String getName() {

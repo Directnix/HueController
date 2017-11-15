@@ -13,5 +13,4 @@ public interface IApi{
     void setOn(Light light, boolean on);
 
     void getLights();
-    void getLight(Light light);
 }

@@ -45,11 +45,9 @@ public class ApiHandler implements VolleyListener, IApi {
     @Override
     public void onReceive(String body) {
         switch (lastRequest){
-            case USERNAME: receiveUserName(body);
+            case USERNAME: receiveUserName(body); getLights();
                 break;
             case LIGHTS: receiveLights(body);
-                break;
-            case LIGHT: receiveLight(body);
                 break;
         }
     }
@@ -98,14 +96,6 @@ public class ApiHandler implements VolleyListener, IApi {
         lastRequest = QueuedRequest.LIGHTS;
     }
 
-    @Override
-    public void getLight(Light light) {
-        VolleyService.doRequest(rootUrl + username + "/lights/" + light.getIndex(),
-                Request.Method.GET
-        );
-        lastRequest = QueuedRequest.LIGHT;
-    }
-
     private void receiveUserName(String body){
         String[] s = body.split("\"");
         username = s[5];
@@ -117,28 +107,32 @@ public class ApiHandler implements VolleyListener, IApi {
         try {
             JSONObject response = new JSONObject(body);
             Iterator x = response.keys();
-            JSONArray jlights = new JSONArray();
+            JSONArray jLights = new JSONArray();
 
-            while (x.hasNext()){
-                jlights.put(response.get((String) x.next()));
+            while (x.hasNext())
+                jLights.put(response.get((String) x.next()));
+
+            for(int i = 0; i < jLights.length(); i++){
+                lights.add(new Light(
+                        jLights.getJSONObject(i).getString("name"),
+                        i,
+                        Integer.parseInt(jLights.getJSONObject(i).getJSONObject("state").getString("bri")),
+                        Integer.parseInt(jLights.getJSONObject(i).getJSONObject("state").getString("hue")),
+                        Integer.parseInt(jLights.getJSONObject(i).getJSONObject("state").getString("sat")),
+                        Boolean.parseBoolean(jLights.getJSONObject(i).getJSONObject("state").getString("on"))
+                ));
             }
 
-            for(int i = 0; i < jlights.length(); i++){
-
-            }
+            listener.onLightsReceived(lights);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-
-    private void receiveLight(String body){
-
-    }
 }
 
 enum QueuedRequest{
-    NONE, USERNAME, LIGHTS, LIGHT, SET
+    NONE, USERNAME, LIGHTS, SET
 }
 
 
