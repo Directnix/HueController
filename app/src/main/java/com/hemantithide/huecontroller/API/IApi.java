@@ -1,4 +1,6 @@
-package com.hemantithide.huecontroller;
+package com.hemantithide.huecontroller.API;
+
+import com.hemantithide.huecontroller.Model.Light;
 
 /**
  * Created by Nick van Endhoven, 2119719 on 15-Nov-17.

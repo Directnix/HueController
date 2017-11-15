@@ -3,16 +3,15 @@ package com.hemantithide.huecontroller;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
-import com.android.volley.Request;
+import com.hemantithide.huecontroller.API.ApiHandler;
+import com.hemantithide.huecontroller.API.IApi;
+import com.hemantithide.huecontroller.API.IApiResponse;
+import com.hemantithide.huecontroller.Model.Light;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements IApiResponse {
 
     IApi api;
     ArrayList<Light> lights = new ArrayList<>();
@@ -22,8 +21,20 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        api = ApiHandler.getInstance(this);
-
+        api = ApiHandler.getInstance("http://145.49.24.217/api/",this, this);
+        api.getLights();
     }
 
+    @Override
+    public void onLightsReceived(ArrayList<Light> lights) {
+        Log.i("MAIN", "lights received");
+        this.lights = lights;
+        //TODO: update adapter
+    }
+
+    @Override
+    public void onLightReceived(Light light) {
+        Log.i("MAIN", "light received");
+        //TODO: detail light get (for detail fragment)
+    }
 }
