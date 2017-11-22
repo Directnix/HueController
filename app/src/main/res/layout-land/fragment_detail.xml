@@ -1,0 +1,121 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.hemantithide.huecontroller.UI.Fragments.DetailFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/fa_det_color"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/fa_det_sb_bri"
+            app:layout_constraintEnd_toEndOf="@+id/fa_det_sb_bri"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.275" />
+
+        <TextView
+            android:id="@+id/fa_det_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Lamp 1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <SeekBar
+            android:id="@+id/fa_det_sb_bri"
+            android:layout_width="240dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="48dp"
+            android:max="254"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/fa_det_bri"
+            app:layout_constraintTop_toBottomOf="@+id/fa_det_name" />
+
+        <SeekBar
+            android:id="@+id/fa_det_sb_sat"
+            android:layout_width="240dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            android:max="254"
+            app:layout_constraintEnd_toEndOf="@+id/fa_det_sb_bri"
+            app:layout_constraintStart_toStartOf="@+id/fa_det_sb_bri"
+            app:layout_constraintTop_toBottomOf="@+id/fa_det_sb_bri" />
+
+        <SeekBar
+            android:id="@+id/fa_det_sb_hue"
+            android:layout_width="240dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            android:max="65535"
+            app:layout_constraintEnd_toEndOf="@+id/fa_det_sb_sat"
+            app:layout_constraintStart_toStartOf="@+id/fa_det_sb_sat"
+            app:layout_constraintTop_toBottomOf="@+id/fa_det_sb_sat" />
+
+        <TextView
+            android:id="@+id/fa_det_bri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="Brightness"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintStart_toStartOf="@+id/fa_det_name"
+            app:layout_constraintTop_toBottomOf="@+id/fa_det_name" />
+
+        <TextView
+            android:id="@+id/fa_det_sat"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginTop="28dp"
+            android:text="Saturation"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintStart_toStartOf="@+id/fa_det_bri"
+            app:layout_constraintTop_toBottomOf="@+id/fa_det_bri" />
+
+        <TextView
+            android:id="@+id/fa_det_hue"
+            android:layout_width="51dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="28dp"
+            android:text="Hue"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintStart_toStartOf="@+id/fa_det_sat"
+            app:layout_constraintTop_toBottomOf="@+id/fa_det_sat" />
+
+        <Switch
+            android:id="@+id/fa_det_switch"
+            android:layout_width="180dp"
+            android:layout_height="39dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
+            android:text="On/Off"
+            android:textOff="Off"
+            android:textOn="On"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/fa_det_hue"
+            app:layout_constraintTop_toBottomOf="@+id/fa_det_sb_hue"
+            app:layout_constraintVertical_bias="0.25" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

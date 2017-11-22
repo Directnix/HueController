@@ -1,13 +1,17 @@
 package com.hemantithide.huecontroller;
 
 import android.content.res.Configuration;
+import android.net.Uri;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.hemantithide.huecontroller.UI.Fragments.DetailFragment;
 import com.hemantithide.huecontroller.UI.Fragments.LightFragment;
 import com.hemantithide.huecontroller.Model.Light;
 
-public class MainActivity extends FragmentActivity implements LightFragment.OnListFragmentInteractionListener {
+public class MainActivity extends FragmentActivity implements LightFragment.OnListFragmentInteractionListener, DetailFragment.OnFragmentInteractionListener {
 
     public static final String API_ADDRESS = "http://192.168.1.179/api/";
     private int orientation;
@@ -21,10 +25,15 @@ public class MainActivity extends FragmentActivity implements LightFragment.OnLi
 
     @Override
     public void onListFragmentInteraction(Light light) {
-        //TODO: update detail fragment
+        Log.e("LISTENER", "ACK");
+
+        DetailFragment frDetail = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.ma_fr_det);
+        frDetail.updateUi(light);
+
 
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //TODO: goto activity detail activity
+            //TODO: go to activity detail activity
+
         }
     }
 
@@ -33,5 +42,10 @@ public class MainActivity extends FragmentActivity implements LightFragment.OnLi
         orientation = _newConfig.orientation;
 
         super.onConfigurationChanged(_newConfig);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

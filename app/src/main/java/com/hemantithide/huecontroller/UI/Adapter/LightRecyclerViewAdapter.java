@@ -41,7 +41,7 @@ public class LightRecyclerViewAdapter extends RecyclerView.Adapter<LightRecycler
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.light);
+                    mListener.onListFragmentInteraction(light);
                 }
             }
         });
@@ -56,7 +56,6 @@ public class LightRecyclerViewAdapter extends RecyclerView.Adapter<LightRecycler
         public final View mView;
         public final TextView tvName;
         public final ImageView ivColor;
-        public Light light;
 
         public ViewHolder(View view) {
             super(view);
