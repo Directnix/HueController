@@ -20,7 +20,7 @@ import java.util.Iterator;
 public class ApiHandler implements VolleyListener {
     public static ApiHandler instance;
 
-    static String username;
+    static String username = "iYrmsQq1wu5FxF9CPqpJCnm1GpPVylKBWDUsNDhB";
     static String rootUrl;
 
     IApiResponse listener;
@@ -98,7 +98,7 @@ public class ApiHandler implements VolleyListener {
 
     private void receiveUserName(String body){
         String[] s = body.split("\"");
-        username = s[5];
+        // username = s[5];
     }
 
     private void receiveLights(String body){

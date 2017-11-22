@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements IApiResponse {
         adapter = new LightsAdapter(getApplicationContext(), lights);
         lvLights.setAdapter(adapter);
 
-        ApiHandler.getInstance("http://145.49.24.217/api/",this, this);
+        ApiHandler.getInstance("http://145.48.205.33/api/",this, this);
     }
 
     @Override
