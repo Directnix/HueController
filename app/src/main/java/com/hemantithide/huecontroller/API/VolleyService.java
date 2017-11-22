@@ -43,7 +43,7 @@ public class VolleyService {
                 requestType,
                 url,
                 response -> listener.onReceive(response),
-                error -> Log.e("VOLLEY", error.toString())
+                error -> listener.onReceiveError(error.toString())
         ){
             @Override
             public String getBodyContentType() {
@@ -78,4 +78,5 @@ public class VolleyService {
 
 interface VolleyListener{
     void onReceive(String body);
+    void onReceiveError(String error);
 }

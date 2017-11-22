@@ -9,7 +9,7 @@ import com.hemantithide.huecontroller.Model.Light;
 
 public class MainActivity extends FragmentActivity implements LightFragment.OnListFragmentInteractionListener {
 
-    public static final String API_ADDRESS = "http://145.49.24.217/api/";
+    public static final String API_ADDRESS = "http://192.168.1.179/api/";
     private int orientation;
 
     @Override

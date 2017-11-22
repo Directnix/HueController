@@ -1,7 +1,11 @@
 package com.hemantithide.huecontroller.API;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.hemantithide.huecontroller.Model.Light;
@@ -23,6 +27,8 @@ public class ApiHandler implements VolleyListener {
     static String username;
     static String rootUrl;
 
+    Context context;
+
     IApiResponse listener;
 
     static QueuedRequest lastRequest = QueuedRequest.NONE;
@@ -36,20 +42,44 @@ public class ApiHandler implements VolleyListener {
     private ApiHandler(String rootUrl, IApiResponse listener, Context context){
         this.rootUrl = rootUrl;
         this.listener = listener;
+        this.context = context;
         VolleyService.getInstance(this, context);
 
-        VolleyService.doRequest(rootUrl,"{\"start\":\"fire\"}", Request.Method.POST);
+        VolleyService.doRequest(rootUrl,"{\"devicetype\":\"" + Build.MODEL + "\"}", Request.Method.POST);
         lastRequest = QueuedRequest.USERNAME;
     }
 
     @Override
     public void onReceive(String body) {
+
+        if(body.contains("unauthorized user")){
+            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(context);
+            dlgAlert.setMessage("Press the link button on the bridge and try again");
+            dlgAlert.setTitle("Unauthorized user");
+            dlgAlert.setPositiveButton("Try again",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            VolleyService.doRequest(rootUrl,"{\"devicetype\":\"" + Build.MODEL + "\"}", Request.Method.POST);
+                            lastRequest = QueuedRequest.USERNAME;
+                        }
+                    });
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+            return;
+        }
+
         switch (lastRequest){
             case USERNAME: receiveUserName(body); getLights();
                 break;
             case LIGHTS: receiveLights(body);
                 break;
         }
+    }
+
+    @Override
+    public void onReceiveError(String error) {
+        Log.e("VOLLEY", error);
+
     }
 
     public static void setBrightness(Light light, int bri) {
@@ -93,6 +123,7 @@ public class ApiHandler implements VolleyListener {
 
     private void receiveUserName(String body){
         String[] s = body.split("\"");
+        Log.i("USERNAME", s[5]);
         username = s[5];
     }
 
