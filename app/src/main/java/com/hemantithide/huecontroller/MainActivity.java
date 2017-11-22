@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends FragmentActivity implements LightFragment.OnListFragmentInteractionListener {
 
+    public static final String API_ADDRESS = "http://145.49.24.217/api/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

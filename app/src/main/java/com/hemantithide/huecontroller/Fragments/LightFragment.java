@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.hemantithide.huecontroller.API.ApiHandler;
 import com.hemantithide.huecontroller.API.IApiResponse;
+import com.hemantithide.huecontroller.MainActivity;
 import com.hemantithide.huecontroller.Model.Light;
 import com.hemantithide.huecontroller.R;
 
@@ -19,8 +20,6 @@ import java.util.ArrayList;
 
 
 public class LightFragment extends Fragment implements IApiResponse {
-
-    private static final String apiAddress = "http://192.168.1.168/api/";
 
     private OnListFragmentInteractionListener mListener;
     ArrayList<Light> lights = new ArrayList<>();
@@ -32,7 +31,7 @@ public class LightFragment extends Fragment implements IApiResponse {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ApiHandler.getInstance(apiAddress, this, getContext());
+        ApiHandler.getInstance(MainActivity.API_ADDRESS, this, getContext());
     }
 
     @Override

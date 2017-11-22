@@ -1,5 +1,7 @@
 package com.hemantithide.huecontroller.Model;
 
+import android.graphics.Color;
+
 import java.io.Serializable;
 
 /**
@@ -34,6 +36,16 @@ public class Light implements Serializable{
                 ", saturation=" + saturation +
                 ", on=" + on +
                 '}';
+    }
+
+    public int toHSVColor(){
+        return Color.HSVToColor(
+                new float[]{
+                        (float) getHue()/65280f * 360,
+                        (float)getSaturation()/254f,
+                        (float)getBrightness()/254f
+                }
+        );
     }
 
     public String getName() {
