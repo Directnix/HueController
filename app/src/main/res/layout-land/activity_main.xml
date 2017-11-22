@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/ma_fr_light"
-        android:name="com.hemantithide.huecontroller.Fragments.LightFragment"
+        android:name="com.hemantithide.huecontroller.UI.Fragments.LightFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

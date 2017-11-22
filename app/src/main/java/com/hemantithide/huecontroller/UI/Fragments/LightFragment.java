@@ -1,4 +1,4 @@
-package com.hemantithide.huecontroller.Fragments;
+package com.hemantithide.huecontroller.UI.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import com.hemantithide.huecontroller.API.IApiResponse;
 import com.hemantithide.huecontroller.MainActivity;
 import com.hemantithide.huecontroller.Model.Light;
 import com.hemantithide.huecontroller.R;
+import com.hemantithide.huecontroller.UI.Adapter.LightRecyclerViewAdapter;
 
 import java.util.ArrayList;
 

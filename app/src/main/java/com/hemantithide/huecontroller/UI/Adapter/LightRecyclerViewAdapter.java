@@ -1,6 +1,5 @@
-package com.hemantithide.huecontroller.Fragments;
+package com.hemantithide.huecontroller.UI.Adapter;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.hemantithide.huecontroller.Fragments.LightFragment.OnListFragmentInteractionListener;
+import com.hemantithide.huecontroller.UI.Fragments.LightFragment.OnListFragmentInteractionListener;
 import com.hemantithide.huecontroller.Model.Light;
 import com.hemantithide.huecontroller.R;
 

@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.hemantithide.huecontroller.Fragments.LightFragment"
+    tools:context=".UI.Fragments.LightFragment"
     tools:listitem="@layout/fragment_light" />
