@@ -25,27 +25,24 @@ public class MainActivity extends FragmentActivity implements LightFragment.OnLi
 
     @Override
     public void onListFragmentInteraction(Light light) {
-        Log.e("LISTENER", "ACK");
-
         DetailFragment frDetail = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.ma_fr_det);
         frDetail.updateUi(light);
 
-
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             //TODO: go to activity detail activity
-
         }
     }
 
     @Override
     public void onConfigurationChanged(Configuration _newConfig) {
         orientation = _newConfig.orientation;
-
         super.onConfigurationChanged(_newConfig);
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onFragmentInteraction(Light light) {
+        Log.i("DETAIL", "ACK");
+        LightFragment frLight = (LightFragment) getSupportFragmentManager().findFragmentById(R.id.ma_fr_light);
+        frLight.updateAdapter();
     }
 }

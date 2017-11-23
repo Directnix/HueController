@@ -1,6 +1,7 @@
 package com.hemantithide.huecontroller.UI.Fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,6 +26,12 @@ public class DetailFragment extends Fragment {
 
     private Light light;
     private OnFragmentInteractionListener mListener;
+
+    SeekBar skBri;
+    SeekBar skSat;
+    SeekBar skHue;
+
+    boolean orientationMode = false;
 
     public DetailFragment() {
 
@@ -58,6 +65,7 @@ public class DetailFragment extends Fragment {
     public void updateUi(Light light){
         Log.e("UPDATE DETAIL UI", "ACK");
 
+        orientationMode = false;
         this.light = light;
 
         TextView tvName = getView().findViewById(R.id.fa_det_name);
@@ -66,13 +74,21 @@ public class DetailFragment extends Fragment {
         ImageButton ibColor = getView().findViewById(R.id.fa_det_color);
         ibColor.setColorFilter(light.toHSVColor());
 
-        SeekBar skBri = getView().findViewById(R.id.fa_det_sb_bri);
-        skBri.setProgress(light.getBrightness());
+        ibColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                orientationMode = !orientationMode;
+                power();
+            }
+        });
 
+        skBri = getView().findViewById(R.id.fa_det_sb_bri);
         skBri.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                light.setBrightness(seekBar.getProgress());
                 ApiHandler.setBrightness(light, seekBar.getProgress());
+                mListener.onFragmentInteraction(light);
             }
 
             @Override
@@ -86,13 +102,14 @@ public class DetailFragment extends Fragment {
             }
         });
 
-        SeekBar skSat = getView().findViewById(R.id.fa_det_sb_sat);
-        skSat.setProgress(light.getSaturation());
+        skSat = getView().findViewById(R.id.fa_det_sb_sat);
 
         skSat.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                light.setSaturation(seekBar.getProgress());
                 ApiHandler.setSaturation(light,seekBar.getProgress());
+                mListener.onFragmentInteraction(light);
             }
 
             @Override
@@ -106,13 +123,14 @@ public class DetailFragment extends Fragment {
             }
         });
 
-        SeekBar skHue = getView().findViewById(R.id.fa_det_sb_hue);
-        skHue.setProgress(light.getHue());
+        skHue = getView().findViewById(R.id.fa_det_sb_hue);
 
         skHue.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                light.setHue(seekBar.getProgress());
                 ApiHandler.setHue(light, seekBar.getProgress());
+                mListener.onFragmentInteraction(light);
             }
 
             @Override
@@ -127,15 +145,32 @@ public class DetailFragment extends Fragment {
         });
 
         Switch swOn = getView().findViewById(R.id.fa_det_switch);
-        swOn.setChecked(light.isOn());
 
-        swOn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ApiHandler.setOn(light, swOn.isChecked());
-            }
+        swOn.setOnClickListener(view -> {
+            ApiHandler.setOn(light, swOn.isChecked());
+            light.setOn(swOn.isChecked());
+            mListener.onFragmentInteraction(light);
+            power();
         });
 
+        skBri.setProgress(light.getBrightness());
+        skSat.setProgress(light.getSaturation());
+        skHue.setProgress(light.getHue());
+        swOn.setChecked(light.isOn());
+
+        power();
+    }
+
+    private void power(){
+        if(light.isOn() || !orientationMode){
+            skBri.setEnabled(true);
+            skSat.setEnabled(true);
+            skHue.setEnabled(true);
+        }else{
+            skBri.setEnabled(false);
+            skSat.setEnabled(false);
+            skHue.setEnabled(false);
+        }
     }
 
 
@@ -147,6 +182,6 @@ public class DetailFragment extends Fragment {
 
 
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(Light light);
     }
 }

@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Nick van Endhoven, 2119719 on 15-Nov-17.
@@ -134,14 +135,18 @@ public class ApiHandler implements VolleyListener {
             JSONObject response = new JSONObject(body);
             Iterator x = response.keys();
             JSONArray jLights = new JSONArray();
+            List<String> keys = new ArrayList<>();
 
-            while (x.hasNext())
-                jLights.put(response.get((String) x.next()));
+            while (x.hasNext()) {
+                String res = (String) x.next();
+                jLights.put(response.get(res));
+                keys.add(res);
+            }
 
             for(int i = 0; i < jLights.length(); i++){
                 lights.add(new Light(
                         jLights.getJSONObject(i).getString("name"),
-                        i,
+                        Integer.parseInt(keys.get(i)),
                         Integer.parseInt(jLights.getJSONObject(i).getJSONObject("state").getString("bri")),
                         Integer.parseInt(jLights.getJSONObject(i).getJSONObject("state").getString("hue")),
                         Integer.parseInt(jLights.getJSONObject(i).getJSONObject("state").getString("sat")),

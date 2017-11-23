@@ -1,5 +1,6 @@
 package com.hemantithide.huecontroller.UI.Adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,11 @@ public class LightRecyclerViewAdapter extends RecyclerView.Adapter<LightRecycler
         Light light = lights.get(position);
 
         holder.tvName.setText(light.getName());
-        holder.ivColor.setBackgroundColor(light.toHSVColor());
+
+        if(light.isOn())
+            holder.ivColor.setBackgroundColor(light.toHSVColor());
+        else
+            holder.ivColor.setBackgroundColor(Color.BLACK);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

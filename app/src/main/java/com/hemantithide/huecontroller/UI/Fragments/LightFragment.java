@@ -77,8 +77,11 @@ public class LightFragment extends Fragment implements IApiResponse {
         this.lights.clear();
         this.lights.addAll(lights);
 
-        adapter.notifyDataSetChanged();
+        updateAdapter();
+    }
 
+    public void updateAdapter(){
+        adapter.notifyDataSetChanged();
     }
 
     public interface OnListFragmentInteractionListener {
