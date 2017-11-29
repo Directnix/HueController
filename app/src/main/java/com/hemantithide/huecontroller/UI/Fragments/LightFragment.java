@@ -20,7 +20,7 @@ import com.hemantithide.huecontroller.UI.Adapter.LightRecyclerViewAdapter;
 import java.util.ArrayList;
 
 
-public class LightFragment extends Fragment implements IApiResponse {
+public class LightFragment extends Fragment {
 
     private OnListFragmentInteractionListener mListener;
     ArrayList<Light> lights = new ArrayList<>();
@@ -51,7 +51,6 @@ public class LightFragment extends Fragment implements IApiResponse {
         return view;
     }
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -68,14 +67,9 @@ public class LightFragment extends Fragment implements IApiResponse {
         mListener = null;
     }
 
-    @Override
-    public void onLightsReceived(ArrayList<Light> lights) {
-        for(Light l: lights)
-            Log.i("LIGHT", l.toString());
-
+    public void setLights(ArrayList<Light> lights) {
         this.lights.clear();
         this.lights.addAll(lights);
-
         updateAdapter();
     }
 

@@ -10,4 +10,5 @@ import java.util.ArrayList;
 
 public interface IApiResponse {
     void onLightsReceived(ArrayList<Light> lights);
+    void onErrorReceived(String body);
 }
