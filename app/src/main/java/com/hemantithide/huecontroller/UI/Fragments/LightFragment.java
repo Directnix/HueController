@@ -32,7 +32,6 @@ public class LightFragment extends Fragment implements IApiResponse {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ApiHandler.getInstance(MainActivity.API_ADDRESS, this, getContext());
         setRetainInstance(true);
     }
 
