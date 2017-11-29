@@ -69,17 +69,6 @@ public class DetailFragment extends Fragment {
         TextView tvName = getView().findViewById(R.id.fa_det_name);
         tvName.setText(light.getName());
 
-        ImageButton ibColor = getView().findViewById(R.id.fa_det_color);
-        ibColor.setColorFilter(light.toHSVColor());
-
-        ibColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                orientationMode = !orientationMode;
-                power();
-            }
-        });
-
         skBri = getView().findViewById(R.id.fa_det_sb_bri);
         skBri.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

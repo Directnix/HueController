@@ -11,18 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/fa_det_color"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/colorAccent"
-            app:layout_constraintBottom_toTopOf="@+id/fa_det_sb_bri"
-            app:layout_constraintEnd_toEndOf="@+id/fa_det_sb_bri"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.275" />
-
         <TextView
             android:id="@+id/fa_det_name"
             android:layout_width="wrap_content"
@@ -30,7 +18,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Lamp 1"
+            android:text="Select a lamp"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"

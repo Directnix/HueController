@@ -2,6 +2,7 @@ package com.hemantithide.huecontroller;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
@@ -29,7 +30,6 @@ public class MainActivity extends FragmentActivity implements LightFragment.OnLi
     //public static String API_ADDRESS = "http://192.168.1.179/api/"; // LA 134
     //public static String API_ADDRESS;
     public static String API_ADDRESS = "http://145.48.205.33/api/" ;
-    private int orientation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,47 +38,31 @@ public class MainActivity extends FragmentActivity implements LightFragment.OnLi
 
         LightFragment frLight = (LightFragment) getSupportFragmentManager().findFragmentById(R.id.ma_fr_light);
         ApiHandler.getInstance(MainActivity.API_ADDRESS, frLight, getApplicationContext());
+
+        if(getIntent().getSerializableExtra("LIGHT") != null){
+            DetailFragment frDetail = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.ma_fr_det);
+            frDetail.updateUi((Light) getIntent().getSerializableExtra("LIGHT"));
+            getIntent().removeExtra("LIGHT");
+        }
     }
 
     @Override
     public void onListFragmentInteraction(Light light) {
-        DetailFragment frDetail = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.ma_fr_det);
-        frDetail.updateUi(light);
 
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //TODO: go to activity detail activity
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            DetailFragment frDetail = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.ma_fr_det);
+            frDetail.updateUi(light);
+        }else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Intent i = new Intent(getApplicationContext(), DetailActivity.class);
+            i.putExtra("LIGHT", light);
+            startActivity(i);
         }
     }
-
-//    @Override
-//    public void onConfigurationChanged(Configuration _newConfig) {
-//        orientation = _newConfig.orientation;
-//        super.onConfigurationChanged(_newConfig);
-//    }
 
     @Override
     public void onFragmentInteraction(Light light) {
         Log.i("DETAIL", "ACK");
         LightFragment frLight = (LightFragment) getSupportFragmentManager().findFragmentById(R.id.ma_fr_light);
         frLight.updateAdapter();
-    }
-
-    public String getLocalIpAddress() {
-        try {
-            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
-                NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress()) {
-                        String ip = Formatter.formatIpAddress(inetAddress.hashCode());
-                        Log.i("IP", "***** IP=" + ip);
-                        return ip;
-                    }
-                }
-            }
-        } catch (SocketException ex) {
-            Log.e("IP", ex.toString());
-        }
-        return null;
     }
 }
