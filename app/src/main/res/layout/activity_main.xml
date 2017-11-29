@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.hemantithide.huecontroller.MainActivity">
 
-    <fragment
-        android:id="@+id/ma_fr_light"
-        android:name="com.hemantithide.huecontroller.UI.Fragments.LightFragment"
+    <FrameLayout
+        android:id="@+id/ma_fl_lights"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>

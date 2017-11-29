@@ -28,8 +28,8 @@ public class DetailActivity extends FragmentActivity implements DetailFragment.O
             return;
         }
 
-        DetailFragment frDetail = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.de_fr_detail);
-        frDetail.updateUi(light);
+        ///DetailFragment frDetail = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.de_fr_detail);
+        //frDetail.updateUi(light);
     }
 
 

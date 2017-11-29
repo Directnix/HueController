@@ -34,20 +34,23 @@ public class ApiHandler implements VolleyListener {
 
     static QueuedRequest lastRequest = QueuedRequest.NONE;
 
-    public static ApiHandler getInstance(String rootUrl, IApiResponse listener, Context context) {
+    public static ApiHandler getInstance(String rootUrl, Context context) {
         if (instance == null)
-            instance = new ApiHandler(rootUrl,listener, context);
+            instance = new ApiHandler(rootUrl, context);
         return instance;
     }
 
-    private ApiHandler(String rootUrl, IApiResponse listener, Context context){
+    private ApiHandler(String rootUrl, Context context){
         this.rootUrl = rootUrl;
-        this.listener = listener;
         this.context = context;
         VolleyService.getInstance(this, context);
 
         VolleyService.doRequest(rootUrl,"{\"devicetype\":\"" + Build.MODEL + "\"}", Request.Method.POST);
         lastRequest = QueuedRequest.USERNAME;
+    }
+
+    public void setListener(IApiResponse listener){
+        this.listener = listener;
     }
 
     @Override
