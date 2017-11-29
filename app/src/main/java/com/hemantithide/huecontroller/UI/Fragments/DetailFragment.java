@@ -35,6 +35,12 @@ public class DetailFragment extends Fragment {
     SeekBar skSat;
     SeekBar skHue;
 
+    int hue;
+    int sat;
+    int bri;
+
+    ImageView ivColor;
+
     boolean orientationMode = false;
 
     public DetailFragment() {
@@ -80,20 +86,25 @@ public class DetailFragment extends Fragment {
 
         getView().setVisibility(View.VISIBLE);
 
+        hue = light.getHue();
+        sat = light.getSaturation();
+        bri = light.getBrightness();
+
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             Button btnBack = getView().findViewById(R.id.fa_da_btn_back);
             btnBack.setOnClickListener(view -> {
                 Intent i = new Intent(getContext(), LightsActivity.class);
                 startActivity(i);
             });
-
-            ImageView ivColor = getView().findViewById(R.id.fr_de_iv_color);
-
-            if(light.isOn())
-                ivColor.setBackgroundColor(light.toHSVColor());
-            else
-                ivColor.setBackgroundColor(Color.BLACK);
         }
+
+        ivColor = getView().findViewById(R.id.fr_de_iv_color);
+
+        if(light.isOn())
+            ivColor.setColorFilter(light.toHSVColor());
+        else
+            ivColor.setColorFilter(Color.BLACK);
+
 
         orientationMode = false;
         this.light = light;
@@ -105,6 +116,10 @@ public class DetailFragment extends Fragment {
         skBri.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if(light.isOn()) {
+                    bri = seekBar.getProgress();
+                    ivColor.setColorFilter(toHSVColor(hue, sat, bri));
+                }
             }
 
             @Override
@@ -125,6 +140,10 @@ public class DetailFragment extends Fragment {
         skSat.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if(light.isOn()) {
+                    sat = seekBar.getProgress();
+                    ivColor.setColorFilter(toHSVColor(hue, sat, bri));
+                }
             }
 
             @Override
@@ -145,6 +164,10 @@ public class DetailFragment extends Fragment {
         skHue.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if(light.isOn()) {
+                    hue = seekBar.getProgress();
+                    ivColor.setColorFilter(toHSVColor(hue, sat, bri));
+                }
             }
 
             @Override
@@ -166,6 +189,10 @@ public class DetailFragment extends Fragment {
             ApiHandler.setOn(light, swOn.isChecked());
             light.setOn(swOn.isChecked());
             mListener.onFragmentInteraction(light);
+            if(light.isOn())
+                ivColor.setColorFilter(light.toHSVColor());
+            else
+                ivColor.setColorFilter(Color.BLACK);
             power();
         });
 
@@ -189,6 +216,15 @@ public class DetailFragment extends Fragment {
         }
     }
 
+    public int toHSVColor(int hue, int sat, int bri){
+        return Color.HSVToColor(
+                new float[]{
+                        (float) hue /65280f * 360,
+                        (float) sat /254f,
+                        (float) bri /254f
+                }
+        );
+    }
 
     @Override
     public void onDetach() {

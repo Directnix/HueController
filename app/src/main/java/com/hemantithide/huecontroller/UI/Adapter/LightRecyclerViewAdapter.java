@@ -38,9 +38,9 @@ public class LightRecyclerViewAdapter extends RecyclerView.Adapter<LightRecycler
         holder.tvName.setText(light.getName());
 
         if(light.isOn())
-            holder.ivColor.setBackgroundColor(light.toHSVColor());
+            holder.ivColor.setColorFilter(light.toHSVColor());
         else
-            holder.ivColor.setBackgroundColor(Color.BLACK);
+            holder.ivColor.setColorFilter(Color.BLACK);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
