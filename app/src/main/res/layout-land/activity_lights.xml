@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hemantithide.huecontroller.MainActivity"
-    tools:layout_editor_absoluteY="73dp">
+    android:background="?attr/colorButtonNormal"
+    tools:context="com.hemantithide.huecontroller.LightsActivity">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -15,7 +15,7 @@
         app:layout_constraintGuide_percent="0.35" />
 
     <FrameLayout
-        android:id="@+id/ma_fl_lights"
+        android:id="@+id/la_fl_lights"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,15 +25,32 @@
 
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="No light selected"
+        android:textAlignment="center"
+        android:textColor="@color/darkgray"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.688"
+        app:layout_constraintStart_toEndOf="@+id/la_fl_lights"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <FrameLayout
-        android:id="@+id/ma_fl_detail"
+        android:id="@+id/la_fl_detail"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
-    </FrameLayout>
+    </FrameLayout>>
 
 </android.support.constraint.ConstraintLayout>

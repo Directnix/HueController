@@ -1,6 +1,8 @@
 package com.hemantithide.huecontroller.UI.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,6 +21,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.hemantithide.huecontroller.API.ApiHandler;
+import com.hemantithide.huecontroller.LightsActivity;
 import com.hemantithide.huecontroller.Model.Light;
 import com.hemantithide.huecontroller.R;
 
@@ -60,8 +64,36 @@ public class DetailFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        getView().setVisibility(View.INVISIBLE);
+
+        if(light != null)
+            updateUi(light);
+    }
+
+    public void setLight(Light light) {
+        this.light = light;
+    }
+
     public void updateUi(Light light){
-        Log.e("UPDATE DETAIL UI", "ACK");
+
+        getView().setVisibility(View.VISIBLE);
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Button btnBack = getView().findViewById(R.id.fa_da_btn_back);
+            btnBack.setOnClickListener(view -> {
+                Intent i = new Intent(getContext(), LightsActivity.class);
+                startActivity(i);
+            });
+
+            ImageView ivColor = getView().findViewById(R.id.fr_de_iv_color);
+
+            if(light.isOn())
+                ivColor.setBackgroundColor(light.toHSVColor());
+            else
+                ivColor.setBackgroundColor(Color.BLACK);
+        }
 
         orientationMode = false;
         this.light = light;
@@ -73,9 +105,6 @@ public class DetailFragment extends Fragment {
         skBri.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                light.setBrightness(seekBar.getProgress());
-                ApiHandler.setBrightness(light, seekBar.getProgress());
-                mListener.onFragmentInteraction(light);
             }
 
             @Override
@@ -85,7 +114,9 @@ public class DetailFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                light.setBrightness(seekBar.getProgress());
+                ApiHandler.setBrightness(light, seekBar.getProgress());
+                mListener.onFragmentInteraction(light);
             }
         });
 
@@ -94,9 +125,6 @@ public class DetailFragment extends Fragment {
         skSat.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                light.setSaturation(seekBar.getProgress());
-                ApiHandler.setSaturation(light,seekBar.getProgress());
-                mListener.onFragmentInteraction(light);
             }
 
             @Override
@@ -106,7 +134,9 @@ public class DetailFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                light.setSaturation(seekBar.getProgress());
+                ApiHandler.setSaturation(light,seekBar.getProgress());
+                mListener.onFragmentInteraction(light);
             }
         });
 
@@ -115,9 +145,6 @@ public class DetailFragment extends Fragment {
         skHue.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                light.setHue(seekBar.getProgress());
-                ApiHandler.setHue(light, seekBar.getProgress());
-                mListener.onFragmentInteraction(light);
             }
 
             @Override
@@ -127,7 +154,9 @@ public class DetailFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                light.setHue(seekBar.getProgress());
+                ApiHandler.setHue(light, seekBar.getProgress());
+                mListener.onFragmentInteraction(light);
             }
         });
 
