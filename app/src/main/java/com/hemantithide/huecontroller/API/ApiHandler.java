@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.hemantithide.huecontroller.MainActivity;
 import com.hemantithide.huecontroller.Model.Light;
 
 import org.json.JSONArray;
@@ -25,7 +26,7 @@ import java.util.List;
 public class ApiHandler implements VolleyListener {
     public static ApiHandler instance;
 
-    static String username ="iYrmsQq1wu5FxF9CPqpJCnm1GpPVylKBWDUsNDhB";
+    static String username;
     static String rootUrl;
     public static boolean access = false;
 
@@ -123,8 +124,10 @@ public class ApiHandler implements VolleyListener {
         String[] s = body.split("\"");
         Log.i("USERNAME", s[5]);
 
-        if(username != s[5])
+        if(MainActivity.USER == null)
             username = s[5];
+        else
+            username = MainActivity.USER;
     }
 
     private void receiveLights(String body){
