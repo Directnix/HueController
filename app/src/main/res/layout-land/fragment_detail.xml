@@ -10,7 +10,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorButtonNormal">
+        android:background="@color/background">
 
 
         <android.support.v7.widget.CardView
@@ -30,6 +30,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="0dp"
+                    android:layout_height="92dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
                 <TextView
                     android:id="@+id/fa_det_sat"
                     android:layout_width="wrap_content"
@@ -37,6 +50,7 @@
                     android:layout_marginTop="28dp"
                     android:text="Saturation"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/textc"
                     app:layout_constraintStart_toStartOf="@+id/fa_det_bri"
                     app:layout_constraintTop_toBottomOf="@+id/fa_det_bri" />
 
@@ -47,6 +61,7 @@
                     android:layout_marginTop="28dp"
                     android:text="Hue"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/textc"
                     app:layout_constraintStart_toStartOf="@+id/fa_det_sat"
                     app:layout_constraintTop_toBottomOf="@+id/fa_det_sat" />
 
@@ -54,12 +69,16 @@
                     android:id="@+id/fa_det_sb_bri"
                     android:layout_width="240dp"
                     android:layout_height="30dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginTop="48dp"
+                    android:layout_marginTop="16dp"
                     android:max="254"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.43"
                     app:layout_constraintStart_toEndOf="@+id/fa_det_bri"
-                    app:layout_constraintTop_toBottomOf="@+id/fa_det_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageView5"
+                    app:layout_constraintVertical_bias="0.182" />
 
                 <SeekBar
                     android:id="@+id/fa_det_sb_hue"
@@ -86,17 +105,22 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/fa_det_hue"
                     app:layout_constraintTop_toBottomOf="@+id/fa_det_sb_hue"
-                    app:layout_constraintVertical_bias="0.25" />
+                    app:layout_constraintVertical_bias="0.25"
+                    android:textColor="@color/textc" />
 
                 <TextView
                     android:id="@+id/fa_det_bri"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="16dp"
                     android:text="Brightness"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/textc"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/fa_det_name"
-                    app:layout_constraintTop_toBottomOf="@+id/fa_det_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageView5"
+                    app:layout_constraintVertical_bias="0.173" />
 
                 <SeekBar
                     android:id="@+id/fa_det_sb_sat"
@@ -112,37 +136,26 @@
                     android:id="@+id/fa_det_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
                     android:text="Select a lamp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@android:color/background_light"
                     android:textSize="30sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/fr_de_iv_color"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginTop="16dp"
-                    android:src="@android:color/holo_red_dark"
+                    android:layout_marginTop="8dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_launcher_round"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/noncircle"
-                    app:layout_constraintBottom_toBottomOf="@+id/fr_de_iv_color"
-                    app:layout_constraintEnd_toEndOf="@+id/fr_de_iv_color"
-                    app:layout_constraintStart_toStartOf="@+id/fr_de_iv_color"
-                    app:layout_constraintTop_toTopOf="@+id/fr_de_iv_color" />
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
 
