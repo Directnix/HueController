@@ -1,6 +1,7 @@
 package com.hemantithide.huecontroller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,10 +14,19 @@ public class MainActivity extends AppCompatActivity{
     public static String API_ADDRESS;
     public static String USER;
 
+    final String IP_KEY = "com.example.app.ip";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences prefs = this.getSharedPreferences(
+                "com.example.app", getApplicationContext().MODE_PRIVATE);
+
+        String ip = prefs.getString(IP_KEY, new String());
+        EditText etIp = findViewById(R.id.ma_et_ipadres);
+        etIp.setText(ip);
 
         Button btnGo = findViewById(R.id.btn_go);
         btnGo.setOnClickListener(new View.OnClickListener() {
@@ -24,6 +34,7 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View view) {
                 EditText etIp = findViewById(R.id.ma_et_ipadres);
                 API_ADDRESS = "http://" + etIp.getText() + "/api/";
+                prefs.edit().putString(IP_KEY, String.valueOf(etIp.getText())).apply();
                 Intent i = new Intent(getApplicationContext(), LightsActivity.class);
                 startActivity(i);
             }
